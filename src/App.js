@@ -1,57 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Equipe = (props) => {
-    return (
-        <div>
-            <Sobre
-                nome={props.nome}
-                cargo={props.cargo}
-                idade={props.idade} />
-            <Social fb={props.fb}/>
-            <hr/>
-        </div>
-    );
-}
+class App extends Component{
 
-const Sobre = (props) => {
-    return (
-        <div>
-            <h2>Olá, eu sou {props.nome}</h2>
-            <h2>Idade: {props.idade} anos</h2>
-            <h2>Cargo: {props.cargo}</h2>
-        </div>
-    );
-}
+    constructor (props){
+        super(props);
+        this.state ={
+            form:{
+                nome:'',
+                email:'',
+                senha:'',
+                sexo:''
+            }
+        } ;
+        this.updateForm=this.updateForm.bind(this);
 
-const Social = (props) => {
-    return(
-        <div>
-            <a href={props.fb}>Facebook </a>
-            <a>Instagram </a>
-            <a>GitHub </a>
-        </div>
-    )
-}
-function App() {
-    return (
-        <div>
-            <h1>Conheça nossa equipe:</h1>
-            <hr/>
-            <Equipe
-                nome="Wellington"
-                cargo="Dev"
-                idade="26"
-                fb="https://www.facebook.com/WellesAraujo/"
-            />
-            <Equipe
-                nome="Kawany"
-                cargo="Design"
-                idade="23"
-            />
-        </div>
+    }
 
-    );
+    updateForm(e){
+        let form=this.state.form;
+        form[e.target.id] = e.target.value;
+        this.setState({form:form});
+    }
 
+    render(){
+        return(
+            <div>
+             <h1>Login</h1>
+                 Nome:
+                 <input type='text' id='nome' value={this.state.form.nome} placeholder='Insira seu nome'
+                    onChange={this.updateForm}/><br/>
+                Email:
+                 <input type='email' id='email' value={this.state.form.email} placeholder='email@email.com.br'
+                    onChange={this.updateForm}/><br/>
+                Senha:
+                 <input type='password' id='senha'value={this.state.form.senha} placeholder='**********'
+                    onChange={this.updateForm}/><br/>
+                Sexo:
+                <select name='sexo' id='sexo' value={this.state.form.sexo} onChange={this.updateForm}>
+                    <option value='masculino'>Masculino</option>
+                    <option value='feminino'>Feminino</option>
+                </select>
+
+                <h3>{this.state.form.nome}</h3>
+                <h3>{this.state.form.email}</h3>
+                <h3>{this.state.form.senha}</h3>
+                <h3>{this.state.form.sexo}</h3>
+
+
+              
+
+            </div>
+        );
+    }
+    
 }
 
 export default App;
